@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OSHEA.LONDON</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf9f6;
+    --bg2:#ffffff;
+    --surface:#ffffff;
+    --line:#e6e3db;
+    --ink:#15171a;
+    --muted:#6f6b62;
+    --muted2:#a29d92;
+    --accent:#2c5ce6;
+    --accent-dim:#e8edfc;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#121212;
+      --bg2:#181818;
+      --surface:#1b1b1b;
+      --line:#2d2d2b;
+      --ink:#f2f1ec;
+      --muted:#a6a29a;
+      --muted2:#716d64;
+      --accent:#7c9bff;
+      --accent-dim:#1c2338;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#121212;
+    --bg2:#181818;
+    --surface:#1b1b1b;
+    --line:#2d2d2b;
+    --ink:#f2f1ec;
+    --muted:#a6a29a;
+    --muted2:#716d64;
+    --accent:#7c9bff;
+    --accent-dim:#1c2338;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    margin:0;-webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent-dim);color:var(--accent);}
+  a{color:inherit;}
+  h1,h2,h3{font-family:'Manrope',system-ui,sans-serif;text-wrap:balance;margin:0;letter-spacing:-0.02em;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .wrap{max-width:1140px;margin:0 auto;padding-inline:28px;}
+  @media (max-width:700px){.wrap{padding-inline:18px;}}
+
+  header{
+    position:sticky;top:env(safe-area-inset-top,0px);z-index:20;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{display:flex;align-items:center;justify-content:space-between;padding-block:20px;gap:12px;flex-wrap:wrap;}
+  @media (max-width:480px){
+    #nav-contact{padding:8px 14px!important;font-size:13px;}
+  }
+  .brand{font-family:'Manrope';font-weight:800;font-size:17px;letter-spacing:-0.01em;}
+  .navlinks{display:flex;gap:6px;align-items:center;}
+  .navlinks button{
+    font-family:'Inter';font-weight:500;font-size:14px;
+    background:none;border:none;color:var(--muted);padding:9px 16px;border-radius:100px;
+    cursor:pointer;transition:.15s;
+  }
+  .navlinks button:hover{color:var(--ink);}
+  .navlinks button.active{color:var(--ink);background:var(--accent-dim);}
+  .navlinks button:focus-visible, a:focus-visible, .card:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+  main{position:relative;}
+  section{padding-block:clamp(48px, 8vw, 96px);}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono';font-size:12px;letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:20px;
+  }
+
+  /* HERO */
+  .hero{padding-top:64px;padding-bottom:0;}
+  .hero h1{font-size:clamp(2rem,5.5vw,4rem);line-height:1.08;font-weight:800;}
+  .hero p.lead{font-size:1.15rem;color:var(--muted);max-width:52ch;margin-top:26px;line-height:1.65;}
+  .hero-cta{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
+  .btn{
+    font-family:'Inter';font-weight:600;font-size:14.5px;padding:14px 26px;border-radius:100px;
+    cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);
+    transition:.15s;
+  }
+  .btn-primary{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+  .btn-primary:hover{background:var(--accent);border-color:var(--accent);}
+  .btn-ghost{background:transparent;color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--ink);}
+
+  .hero-meta{
+    display:grid;grid-template-columns:repeat(4, minmax(0,1fr));
+    column-gap:clamp(20px, 3vw, 40px); row-gap:0;
+    margin-top:clamp(36px, 6vw, 64px); border-top:1px solid var(--line);
+  }
+  .meta-item{
+    min-width:0; padding-block:clamp(18px, 2.4vw, 24px);
+    padding-right:clamp(12px, 1.6vw, 20px); border-right:1px solid var(--line);
+  }
+  .meta-item:nth-child(4n){border-right:none;}
+  @media (max-width:700px){
+    .hero-meta{grid-template-columns:repeat(2, minmax(0,1fr)); row-gap:0;}
+    .meta-item{border-right:none;border-bottom:1px solid var(--line);}
+    .meta-item:nth-child(4n){border-right:none;}
+    .meta-item:nth-child(2n){border-right:none;}
+    .meta-item:nth-child(2n+1){border-right:1px solid var(--line);}
+  }
+  .meta-item .n{font-family:'Manrope';font-size:clamp(1.3rem,3.6vw,1.9rem);font-weight:800;font-variant-numeric:tabular-nums;
+    display:flex;align-items:flex-end;flex-wrap:wrap;min-height:3.5rem;line-height:1.15;margin-bottom:6px;}
+  .meta-item .icon-row{gap:clamp(4px,1vw,7px);color:var(--ink);row-gap:6px;}
+  .meta-item .icon-row svg{flex:none;width:clamp(16px,4vw,24px);height:clamp(16px,4vw,24px);}
+  .infinity-glyph{font-family:'Manrope';font-weight:800;font-size:clamp(1.05rem,3vw,1.5rem);line-height:1;color:var(--ink);}
+  @media (max-width:700px){.meta-item{padding-right:12px;}}
+  .meta-item .l{font-size:12.5px;color:var(--muted);margin-top:4px;}
+
+  /* about */
+  .about-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:clamp(32px, 6vw, 72px);align-items:start;}
+  @media (max-width:860px){.about-grid{grid-template-columns:1fr;gap:36px;}}
+  .about-grid h2{font-size:clamp(1.5rem,4.2vw,2.1rem);margin-bottom:22px;}
+  .about-grid p{color:var(--muted);line-height:1.8;font-size:1.03rem;margin-bottom:16px;}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;}
+  .tag{font-size:12.5px;padding:7px 14px;border:1px solid var(--line);border-radius:100px;color:var(--muted);background:var(--bg2);}
+  .device-list{display:flex;flex-direction:column;border-top:1px solid var(--line);}
+  .device-row{display:flex;justify-content:space-between;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--line);}
+  .device-row .name{font-weight:600;font-size:15px;}
+  .device-row .cat{font-family:'IBM Plex Mono';font-size:11.5px;color:var(--muted2);letter-spacing:0.03em;}
+
+  /* toolkit / profiling section */
+  .tool-row{padding:18px 0;border-bottom:1px solid var(--line);}
+  .tool-row:last-child{border-bottom:none;}
+  .tool-row .tname{font-weight:600;font-size:15px;display:flex;align-items:baseline;gap:10px;}
+  .tool-row .tuse{font-family:'IBM Plex Mono';font-size:11px;color:var(--muted2);letter-spacing:0.03em;font-weight:400;}
+  .tool-row ul{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:13.5px;line-height:1.6;}
+  .tool-row ul li{margin-bottom:2px;}
+
+  /* contact */
+  .contact-panel{
+    display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px, 6vw, 64px);
+  }
+  @media (max-width:860px){.contact-panel{grid-template-columns:1fr;gap:40px;}}
+  .field{margin-bottom:20px;}
+  .field label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:8px;}
+  .field input, .field textarea{
+    width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:10px;color:var(--ink);
+    padding:13px 15px;font-family:'Inter';font-size:14.5px;resize:vertical;
+  }
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim);}
+  .contact-links{display:flex;flex-direction:column;gap:2px;margin-top:24px;border-top:1px solid var(--line);}
+  .contact-link{
+    display:flex;align-items:center;gap:14px;padding:16px 4px;text-decoration:none;transition:.15s;
+    border-bottom:1px solid var(--line);
+  }
+  .contact-link:hover{padding-left:10px;}
+  .contact-link .icon{width:20px;height:20px;flex:none;display:flex;align-items:center;justify-content:center;color:var(--ink);}
+  .contact-link .lbl{font-weight:600;font-size:14.5px;}
+  .contact-link .sub{font-family:'IBM Plex Mono';font-size:11.5px;color:var(--muted2);margin-left:auto;}
+  .direct-email{font-family:'Manrope';font-weight:700;font-size:20px;color:var(--ink);word-break:break-all;}
+
+  footer{border-top:1px solid var(--line);padding-block:28px;}
+  .foot-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--muted2);}
+
+  /* ---------- PORTFOLIO ---------- */
+  .port-head{padding-top:60px;padding-bottom:8px;}
+  .port-head h1{font-size:clamp(2.1rem,4.6vw,3.3rem);}
+  .port-sub{color:var(--muted);max-width:58ch;margin-top:18px;line-height:1.65;}
+
+  .filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:34px;}
+  .chip{
+    font-size:13px;font-weight:500;padding:9px 16px;border-radius:100px;
+    border:1px solid var(--line);background:var(--bg2);color:var(--muted);cursor:pointer;transition:.15s;
+  }
+  .chip:hover{color:var(--ink);border-color:var(--ink);}
+  .chip.active{color:var(--bg);background:var(--ink);border-color:var(--ink);}
+
+  .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:32px;}
+  @media (max-width:980px){.proj-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:640px){.proj-grid{grid-template-columns:1fr;}}
+
+  .card{
+    background:var(--bg2);cursor:pointer;
+    display:flex;flex-direction:column;transition:.18s;text-align:left;padding:0;color:inherit;border:none;
+  }
+  .card:hover{background:var(--accent-dim);}
+  .card-media{
+    aspect-ratio:16/10;background:var(--bg);position:relative;display:flex;align-items:center;justify-content:center;
+    background-size:cover;background-position:center;overflow:hidden;border-bottom:1px solid var(--line);
+  }
+  .card-media .placeholder-icon{color:var(--muted2);opacity:0.6;}
+  .card-media .fill-badge{
+    position:absolute;top:12px;right:12px;font-size:10px;font-weight:600;letter-spacing:0.03em;
+    padding:5px 10px;border-radius:100px;background:var(--ink);color:var(--bg);text-transform:uppercase;
+  }
+  .card-media .empty-badge{background:var(--bg2);color:var(--muted);border:1px solid var(--line);}
+  .card-body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:8px;flex:1;}
+  .card-num{font-family:'IBM Plex Mono';font-size:11px;color:var(--muted2);letter-spacing:0.04em;}
+  .card-title{font-family:'Manrope';font-weight:700;font-size:16.5px;}
+  .card-tag{font-size:11.5px;color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:0.03em;}
+  .card-desc{font-size:13px;color:var(--muted);line-height:1.55;flex:1;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+
+  /* modal */
+  .overlay{
+    position:fixed;inset:0;z-index:50;background:rgba(20,18,14,0.4);backdrop-filter:blur(3px);
+    display:flex;align-items:flex-start;justify-content:center;padding:5vh 16px;overflow-y:auto;
+  }
+  .modal{
+    background:var(--bg2);border:1px solid var(--line);border-radius:20px;max-width:720px;width:100%;
+    padding:0;margin-bottom:5vh;
+  }
+  .modal-head{display:flex;justify-content:space-between;align-items:flex-start;padding:28px 30px;border-bottom:1px solid var(--line);gap:16px;}
+  .modal-head .mhtitle{font-size:1.5rem;}
+  .modal-head .mhtag{font-family:'IBM Plex Mono';font-size:11.5px;color:var(--accent);letter-spacing:0.03em;text-transform:uppercase;margin-top:8px;}
+  .modal-close{background:var(--bg);border:1px solid var(--line);color:var(--muted);width:34px;height:34px;border-radius:100px;cursor:pointer;flex:none;font-size:15px;line-height:1;}
+  .modal-close:hover{color:var(--ink);border-color:var(--ink);}
+  .modal-body{padding:28px 30px 32px;display:flex;flex-direction:column;gap:22px;}
+
+  .dropzone{
+    border:1.5px dashed var(--line);border-radius:16px;padding:30px;text-align:center;background:var(--bg);
+    cursor:pointer;transition:.15s;position:relative;min-height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  }
+  .dropzone.drag{border-color:var(--accent);background:var(--accent-dim);}
+  .dropzone .dz-icon{color:var(--muted2);}
+  .dropzone .dz-text{font-size:13px;color:var(--muted);font-weight:500;}
+  .dropzone .dz-sub{font-size:11.5px;color:var(--muted2);}
+  .dropzone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+  .media-preview{position:relative;border-radius:16px;overflow:hidden;background:#000;}
+  .media-preview img, .media-preview video{width:100%;display:block;max-height:360px;object-fit:contain;background:#000;}
+  .media-preview .rm{
+    position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.9);border:1px solid var(--line);
+    color:var(--ink);width:32px;height:32px;border-radius:100px;cursor:pointer;font-size:14px;
+  }
+  .modal textarea.desc{min-height:110px;}
+  .save-note{font-size:12px;color:var(--muted2);display:flex;align-items:center;gap:6px;}
+  .status-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;}
+
+  [hidden]{display:none!important;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="brand">oshea.london</div>
+      <div class="navlinks">
+        <button data-route="home" class="active">Home</button>
+        <button data-route="coming-soon">Portfolio</button>
+        <button id="nav-contact" class="btn btn-primary" style="padding:9px 18px;margin-left:6px;">Get in touch</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= HOME ================= -->
+<!-- ================= HOME (public, lean redraft) ================= -->
+<div id="view-home">
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">XR / AR / VR — Quality Assurance Specialist</div>
+      <h1>Tomorrow's Tech!<br>Smashed Today?</h1>
+      <p class="lead" hidden>QA XR specialist experienced in augmented; mixed, &amp; virtual reality. Chaotic tests performed on every device &amp; every platform. Prototypes; unreleased hardware; controllers, and prototype software for some of the biggest names in consumer tech. Whilst denying anything and everything.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" data-route="coming-soon">View portfolio →</button>
+        <a class="btn btn-ghost" href="#contact-section">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact-section">
+    <div class="wrap">
+      <div class="eyebrow">Contact</div>
+      <h2 style="font-size:clamp(1.5rem,4.2vw,2.1rem);margin-bottom:12px;">Shall we play a game?</h2>
+      <p style="color:var(--muted);margin-bottom:34px;">Let's test it first.</p>
+      <div class="contact-panel">
+        <div>
+          <form id="contact-form-lean" onsubmit="return false;">
+            <div class="field"><label for="cf-lean-name">Name</label><input id="cf-lean-name" type="text" placeholder="Your name" autocomplete="name"></div>
+            <div class="field"><label for="cf-lean-email">Email</label><input id="cf-lean-email" type="email" placeholder="you@studio.com" autocomplete="email"></div>
+            <div class="field"><label for="cf-lean-msg">Message</label><textarea id="cf-lean-msg" rows="4" placeholder="Tell me about the project, timeline, and NDA requirements..."></textarea></div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;" id="cf-lean-submit" type="button">Send message</button>
+            <div class="save-note" id="cf-lean-note" style="margin-top:14px;"></div>
+          </form>
+        </div>
+        <div>
+          <div class="eyebrow" style="margin-bottom:8px;">Direct &amp; platforms</div>
+          <div class="direct-email">jonathan@oshea.london</div>
+          <div class="contact-links">
+            <a class="contact-link" href="https://reddit.com/u/oshea_london" target="_blank" rel="noopener">
+              <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="13.5" r="7"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/><path d="M9 16.5c1 .7 5 .7 6 0"/><path d="M18 6.5l2-1.2M18 6.5a2 2 0 100-3 2 2 0 000 3zM12 6.5V4"/></svg></span>
+              <span class="lbl">Reddit</span><span class="sub">u/oshea_london</span>
+            </a>
+            <a class="contact-link" href="https://instagram.com/oshea.london" target="_blank" rel="noopener">
+              <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+              <span class="lbl">Instagram</span><span class="sub">@oshea.london</span>
+            </a>
+            <a class="contact-link" href="https://substack.com/oshealondon" target="_blank" rel="noopener">
+              <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16v3H4z" fill="currentColor" stroke="none"/><path d="M4 10h16"/><path d="M4 14h16"/><path d="M4 18l8 3 8-3v-4H4z"/></svg></span>
+              <span class="lbl">Substack</span><span class="sub">oshealondon</span>
+            </a>
+            <a class="contact-link" href="https://contra.com/jonathan_oshea_wp2wof0b" target="_blank" rel="noopener">
+              <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l2.6 5.3 5.9.85-4.25 4.15 1 5.85L12 16.3l-5.25 2.85 1-5.85L3.5 9.15l5.9-.85z"/></svg></span>
+              <span class="lbl">Contra</span><span class="sub">OSHEA LONDON</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ================= HOME (full, private draft — reach via #home-full) ================= -->
+<div id="view-home-full" hidden>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">XR / AR / VR — Quality Assurance Specialist</div>
+      <h1>Tomorrow's Tech!<br>Smashed Today?</h1>
+      <p class="lead">QA XR specialist experienced in augmented; mixed, &amp; virtual reality. Chaotic tests performed on every device &amp; every platform. Prototypes; unreleased hardware; controllers, and prototype software for some of the biggest names in consumer tech. Whilst denying anything and everything.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" data-route="coming-soon">View portfolio →</button>
+        <a class="btn btn-ghost" href="#contact-section-full">Get in touch</a>
+      </div>
+
+      <div class="hero-meta">
+        <div class="meta-item"><div class="n">40+</div><div class="l">Projects shipped</div></div>
+        <div class="meta-item">
+          <div class="n icon-row" aria-label="Every device, every platform">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 9a3 3 0 013-3h10a3 3 0 013 3v3a3 3 0 01-3 3h-2.5a1.5 1.5 0 00-1.3.75l-.7 1.2a1 1 0 01-1.7 0l-.7-1.2A1.5 1.5 0 007.5 15H5a1 1 0 01-1-1z"/><circle cx="8" cy="10.5" r="1"/><circle cx="16" cy="10.5" r="1"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2.2"/><path d="M11 18h2"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="3" width="16" height="12" rx="1.5"/><path d="M2 19h20M9.5 15v4M14.5 15v4"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="4" width="9" height="13" rx="1.3"/><rect x="15" y="4" width="5" height="13" rx="1.3"/><path d="M6 17.5h5M17 17.5h1" stroke-linecap="round"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="6.5" cy="14" r="3"/><circle cx="17.5" cy="14" r="3"/><path d="M9.5 13h5M3.5 11l2-5h13l2 5"/></svg>
+            <span class="infinity-glyph">&#8734;</span>
+          </div>
+          <div class="l">(most) Devices (most) Platforms</div>
+        </div>
+        <div class="meta-item"><div class="n mono">404 Not Found</div><div class="l">Bugs logged</div></div>
+        <div class="meta-item"><div class="n">15+yrs</div><div class="l">In the field</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about-section">
+    <div class="wrap about-grid">
+      <div>
+        <div class="eyebrow">About</div>
+        <h2>On the ground with hardware nobody's seen yet.</h2>
+        <p>I've spent the last 15+ years in the dark. Blind. Gesticulating wildly (occasionally in public) in an attempt to make software behave. Gentle encouragements to ensure creative design matches developed delivery. My core skill is the ability to effectively communicate what I see, how to replicate the issue, and constructively feedback this information.</p>
+        <p>I'm a geek. I love tech. Love my role. The opportunity to explore cutting-edge hardware and software is a treat, and the variety of working flexibly across different locations and teams makes long days feel short.</p>
+        <p>Equally comfortable in an Agile sprint or a Waterfall plan, I build boutique ad hoc test suites where a project calls for it, or work within industry-standard software such as TestRail, Xray, and Zephyr. I'm a veteran in Jira and Trello, and well-versed in building to device and catching performance issues early using the profilers and loggers in Unity, Xcode, Android Studio, Meta Developer Hub, and Lens Studio.</p>
+        <p>Throughout my career I've been trusted with high-profile projects for names like Disney, Meta, and Snap.</p>
+        <div class="tags">
+          <span class="tag">Agile &amp; Waterfall</span>
+          <span class="tag">TestRail</span>
+          <span class="tag">Xray</span>
+          <span class="tag">Zephyr</span>
+          <span class="tag">Jira &amp; Trello</span>
+          <span class="tag">Bespoke Test Suites</span>
+          <span class="tag">Remote &amp; On-site</span>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow" style="margin-bottom:0;">I'm experienced with</div>
+        <div class="device-list">
+          <div class="device-row"><span class="name">Apple Vision Pro</span><span class="cat">visionOS</span></div>
+          <div class="device-row"><span class="name">Meta Quest</span><span class="cat">Horizon OS</span></div>
+          <div class="device-row"><span class="name">SPECS</span><span class="cat">Lens OS</span></div>
+          <div class="device-row"><span class="name">iOS &amp; Android</span><span class="cat">Xcode &amp; Android Studio</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLKIT -->
+  <section id="toolkit-section">
+    <div class="wrap about-grid">
+      <div>
+        <div class="eyebrow">Toolkit</div>
+        <h2>Build tools, not just bug reports.</h2>
+        <p>I build and deploy to device myself, so I can reproduce, isolate, and profile an issue in the same environment the dev team is working in — rather than describing a symptom secondhand.</p>
+        <div class="tags">
+          <span class="tag">Unity</span>
+          <span class="tag">Unreal Engine</span>
+          <span class="tag">Xcode</span>
+          <span class="tag">Android Studio</span>
+          <span class="tag">Lens Studio</span>
+          <span class="tag">Reality Composer Pro</span>
+          <span class="tag">Meta Quest Developer Hub</span>
+          <span class="tag">Visual Studio</span>
+          <span class="tag">Perforce &amp; Git</span>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow" style="margin-bottom:0;">What profiling catches</div>
+        <div class="device-list" style="border-top:1px solid var(--line);">
+          <div class="tool-row">
+            <div class="tname">Unity Profiler <span class="tuse">— CPU / GPU / memory</span></div>
+            <ul>
+              <li>Garbage collection spikes causing frame hitches</li>
+              <li>Excessive draw calls and batching failures</li>
+              <li>Texture and mesh memory bloat</li>
+              <li>Shader compilation stalls on first run</li>
+            </ul>
+          </div>
+          <div class="tool-row">
+            <div class="tname">Xcode Instruments <span class="tuse">— iOS / visionOS</span></div>
+            <ul>
+              <li>Memory leaks and retain cycles</li>
+              <li>Thermal state throttling under load</li>
+              <li>Energy log battery drain outliers</li>
+              <li>Metal GPU overdraw and shader bottlenecks</li>
+            </ul>
+          </div>
+          <div class="tool-row">
+            <div class="tname">Android Studio Profiler <span class="tuse">— CPU / memory / network</span></div>
+            <ul>
+              <li>Heap growth leading to OutOfMemory crashes</li>
+              <li>ANRs (Application Not Responding) on the main thread</li>
+              <li>Jank and dropped frames during scroll or animation</li>
+              <li>Unbatched or excessive network calls</li>
+            </ul>
+          </div>
+          <div class="tool-row">
+            <div class="tname">Lens Studio <span class="tuse">— AR effects</span></div>
+            <ul>
+              <li>Tracking drop-outs during device preview</li>
+              <li>Textures and assets over the device memory budget</li>
+              <li>Script-side performance causing tracking lag</li>
+              <li>Frame rate warnings on lower-end target devices</li>
+            </ul>
+          </div>
+          <div class="tool-row">
+            <div class="tname">Meta Quest Developer Hub <span class="tuse">— standalone VR/MR</span></div>
+            <ul>
+              <li>Dropped frames triggering Asynchronous Space Warp</li>
+              <li>CPU/GPU utilisation imbalance</li>
+              <li>Thermal throttling on extended sessions</li>
+              <li>Tracking loss and boundary system errors</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact-section-full">
+    <div class="wrap">
+      <div class="eyebrow">Contact</div>
+      <h2 style="font-size:clamp(1.5rem,4.2vw,2.1rem);margin-bottom:34px;">Shall we play a game?</h2>
+      <div class="contact-panel">
+        <div>
+          <form id="contact-form" onsubmit="return false;">
+            <div class="field"><label for="cf-name">Name</label><input id="cf-name" type="text" placeholder="Your name" autocomplete="name"></div>
+            <div class="field"><label for="cf-email">Email</label><input id="cf-email" type="email" placeholder="you@studio.com" autocomplete="email"></div>
+            <div class="field"><label for="cf-msg">Message</label><textarea id="cf-msg" rows="4" placeholder="Tell me about the project, timeline, and NDA requirements..."></textarea></div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;" id="cf-submit" type="button">Send message</button>
+            <div class="save-note" id="cf-note" style="margin-top:14px;"></div>
+          </form>
+        </div>
+        <div>
+          <div class="eyebrow" style="margin-bottom:8px;">Direct &amp; platforms</div>
+          <div class="direct-email">jonathan@oshea.london</div>
+          <div class="contact-links">
+            <a class="contact-link" href="https://reddit.com/u/oshea_london" target="_blank" rel="noopener">
+              <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="13.5" r="7"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/><path d="M9 16.5c1 .7 5 .7 6 0"/><path d="M18 6.5l2-1.2M18 6.5a2 2 0 100-3 2 2 0 000 3zM12 6.5V4"/></svg></span>
+              <span class="lbl">Reddit</span><span class="sub">u/oshea_london</span>
+            </a>
+            <a class="contact-link" href="https://instagram.com/oshea.london" target="_blank" rel="noopener">
+              <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+              <span class="lbl">Instagram</span><span class="sub">@oshea.london</span>
+            </a>
+            <a class="contact-link" href="https://substack.com/oshealondon" target="_blank" rel="noopener">
+              <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16v3H4z" fill="currentColor" stroke="none"/><path d="M4 10h16"/><path d="M4 14h16"/><path d="M4 18l8 3 8-3v-4H4z"/></svg></span>
+              <span class="lbl">Substack</span><span class="sub">oshealondon</span>
+            </a>
+            <a class="contact-link" href="https://contra.com/jonathan_oshea_wp2wof0b" target="_blank" rel="noopener">
+              <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l2.6 5.3 5.9.85-4.25 4.15 1 5.85L12 16.3l-5.25 2.85 1-5.85L3.5 9.15l5.9-.85z"/></svg></span>
+              <span class="lbl">Contra</span><span class="sub">OSHEA LONDON</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ================= COMING SOON (public placeholder for Portfolio) ================= -->
+<div id="view-coming-soon" hidden>
+  <section style="min-height:60vh;display:flex;align-items:center;">
+    <div class="wrap" style="text-align:center;">
+      <div class="eyebrow" style="justify-content:center;">Portfolio</div>
+      <h1 style="font-size:clamp(2.2rem,6vw,3.6rem);">Coming soon.</h1>
+      <p class="port-sub" style="margin-inline:auto;">The field log is being put together &mdash; 24 XR, AR, and VR projects, with media and notes for each. Check back shortly, or get in touch in the meantime.</p>
+      <div class="hero-cta" style="justify-content:center;margin-top:28px;">
+        <button class="btn btn-primary" data-route="home">Back to home</button>
+        <button class="btn btn-ghost" id="coming-soon-contact">Get in touch</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= PORTFOLIO (private, not linked from public nav; reach via #portfolio-dev) ================= -->
+<div id="view-portfolio-dev" hidden>
+
+  <section class="port-head">
+    <div class="wrap">
+      <div class="eyebrow">Field Log</div>
+      <h1>The portfolio.</h1>
+      <p class="port-sub">A log of AR, MR, and VR projects tested throughout my career — hardware and software, prototype and shipped. Click any entry to drop in screenshots, capture footage, and notes; everything you add is kept on this device.</p>
+      <div class="filter-row" id="filter-row"></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0;">
+    <div class="wrap">
+      <div class="proj-grid" id="proj-grid"></div>
+    </div>
+  </section>
+
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>&copy; 2011 Coprami — XR/AR/VR QA</span>
+    <span>oshea.london</span>
+  </div>
+</footer>
+
+<div id="modal-root"></div>
+
+<script>
+(function(){
+  'use strict';
+
+  var views = {
+    home: document.getElementById('view-home'),
+    'home-full': document.getElementById('view-home-full'),
+    'coming-soon': document.getElementById('view-coming-soon'),
+    'portfolio-dev': document.getElementById('view-portfolio-dev')
+  };
+  var navBtns = document.querySelectorAll('.navlinks button[data-route]');
+  function setRoute(r){
+    if(!views[r]) r = 'home';
+    Object.keys(views).forEach(function(k){ views[k].hidden = (k !== r); });
+    navBtns.forEach(function(b){ b.classList.toggle('active', b.dataset.route === r || (b.dataset.route === 'coming-soon' && r === 'portfolio-dev')); });
+    window.scrollTo(0,0);
+    try{ location.hash = r; }catch(e){}
+  }
+  navBtns.forEach(function(b){ b.addEventListener('click', function(){ setRoute(b.dataset.route); }); });
+  document.querySelectorAll('[data-route]').forEach(function(el){
+    if(!el.classList.contains('navlinks')){
+      el.addEventListener('click', function(){ setRoute(el.dataset.route); });
+    }
+  });
+  var navContact = document.getElementById('nav-contact');
+  function goToContact(){
+    setRoute('home');
+    setTimeout(function(){
+      var target = document.getElementById('contact-section');
+      if(target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 30);
+  }
+  if(navContact) navContact.addEventListener('click', goToContact);
+  var comingSoonContact = document.getElementById('coming-soon-contact');
+  if(comingSoonContact) comingSoonContact.addEventListener('click', goToContact);
+
+  // Public links always route to the Coming Soon placeholder; the real portfolio
+  // is reachable only by opening the page with #portfolio-dev directly (private URL).
+  if(location.hash === '#portfolio-dev'){
+    setRoute('portfolio-dev');
+  } else if(location.hash === '#home-full'){
+    setRoute('home-full');
+  } else if(location.hash === '#portfolio' || location.hash === '#coming-soon'){
+    setRoute('coming-soon');
+  }
+
+  var CATS = ['VR Headset','AR Optics','Mixed Reality','Controllers & Haptics','Tracking Systems','Software & SDK'];
+  var TITLES = [
+    'Standalone VR Comfort Pass','Optical AR Waveguide Trial','Passthrough Occlusion Study',
+    'Six-DOF Controller Endurance','Eye-Tracking Foveation QA','Hand-Tracking Gesture Suite',
+    'Spatial Audio Localization Test','Thermal Throttling Field Test','Prototype Headset Fit Study',
+    'Inside-Out Tracking Regression','Mixed Reality Boundary System','AR Glasses Battery Drain Audit',
+    'Haptic Glove Calibration Pass','VR Locomotion Comfort Matrix','Foveated Rendering Artifact Hunt',
+    'Cross-Platform SDK Compatibility','Prototype Optics Distortion Map','Multiplayer Latency Stress Test',
+    'Retail Unit Out-of-Box QA','Controller Firmware Regression','AR Cloud Anchor Reliability',
+    'VR Social Platform Load Test','Mixed Reality Hand Occlusion','Next-Gen Headset Pre-Silicon Pass'
+  ];
+  var projects = TITLES.map(function(t, i){
+    return {
+      id: 'p' + (i+1),
+      num: String(i+1).padStart(2,'0'),
+      title: t,
+      cat: CATS[i % CATS.length],
+      desc: 'Structured and exploratory QA pass covering functional, comfort, and performance regressions ahead of internal milestone review. Findings logged against build ' + (100+i) + '.x under active NDA.'
+    };
+  });
+
+  var STORE_KEY = 'field-notes-project-notes-v1';
+  function loadStore(){
+    try{ return JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); }catch(e){ return {}; }
+  }
+  function saveStore(store){
+    try{ localStorage.setItem(STORE_KEY, JSON.stringify(store)); return true; }catch(e){ return false; }
+  }
+  var store = loadStore();
+
+  var activeCat = 'All';
+  var filterRow = document.getElementById('filter-row');
+  ['All'].concat(CATS).forEach(function(c){
+    var chip = document.createElement('button');
+    chip.className = 'chip' + (c === 'All' ? ' active' : '');
+    chip.textContent = c;
+    chip.addEventListener('click', function(){
+      activeCat = c;
+      document.querySelectorAll('.chip').forEach(function(ch){ ch.classList.remove('active'); });
+      chip.classList.add('active');
+      renderGrid();
+    });
+    filterRow.appendChild(chip);
+  });
+
+  var grid = document.getElementById('proj-grid');
+  function mediaIcon(){
+    return '<svg class="placeholder-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>';
+  }
+  function renderGrid(){
+    grid.innerHTML = '';
+    projects.filter(function(p){ return activeCat === 'All' || p.cat === activeCat; }).forEach(function(p){
+      var entry = store[p.id] || {};
+      var card = document.createElement('button');
+      card.className = 'card';
+      card.setAttribute('type','button');
+      var mediaStyle = entry.mediaData && entry.mediaType === 'image' ? ' style="background-image:url(\''+entry.mediaData+'\')"' : '';
+      var hasMedia = !!entry.mediaData;
+      card.innerHTML =
+        '<div class="card-media"'+mediaStyle+'>' +
+          (hasMedia ? (entry.mediaType==='video' ? '<video muted loop autoplay playsinline src="'+entry.mediaData+'" style="width:100%;height:100%;object-fit:cover;"></video>' : '') : mediaIcon()) +
+          '<span class="fill-badge '+(hasMedia?'':'empty-badge')+'">'+(hasMedia ? 'Media added' : 'Add media')+'</span>' +
+        '</div>' +
+        '<div class="card-body">' +
+          '<div class="card-num mono">FN-'+p.num+'</div>' +
+          '<div class="card-title">'+p.title+'</div>' +
+          '<div class="card-tag">'+p.cat+'</div>' +
+          '<div class="card-desc">'+(entry.desc || p.desc)+'</div>' +
+        '</div>';
+      card.addEventListener('click', function(){ openModal(p.id); });
+      grid.appendChild(card);
+    });
+  }
+  renderGrid();
+
+  var modalRoot = document.getElementById('modal-root');
+  function closeModal(){ modalRoot.innerHTML = ''; document.body.style.overflow = ''; }
+
+  function openModal(id){
+    var p = projects.find(function(x){ return x.id === id; });
+    var entry = store[id] || {};
+    document.body.style.overflow = 'hidden';
+
+    modalRoot.innerHTML =
+      '<div class="overlay" id="ov">' +
+        '<div class="modal">' +
+          '<div class="modal-head">' +
+            '<div><div class="mhtitle">'+p.title+'</div><div class="mhtag">FN-'+p.num+' · '+p.cat+'</div></div>' +
+            '<button class="modal-close" id="mclose" aria-label="Close">✕</button>' +
+          '</div>' +
+          '<div class="modal-body">' +
+            '<div id="mediaSlot"></div>' +
+            '<div class="field"><label for="mdesc">Project notes / description</label>' +
+              '<textarea class="desc" id="mdesc" placeholder="What was tested, on what hardware, and what you found...">'+(entry.desc || p.desc)+'</textarea></div>' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">' +
+              '<div class="save-note" id="msave"><span class="status-dot"></span>Saved to this browser</div>' +
+              '<button class="btn btn-primary" id="msaveBtn" type="button">Save entry</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    renderMediaSlot(id);
+
+    document.getElementById('mclose').addEventListener('click', closeModal);
+    document.getElementById('ov').addEventListener('click', function(e){ if(e.target.id === 'ov') closeModal(); });
+    document.addEventListener('keydown', function esc(e){ if(e.key === 'Escape'){ closeModal(); document.removeEventListener('keydown', esc); } });
+
+    document.getElementById('msaveBtn').addEventListener('click', function(){
+      var d = store[id] || {};
+      d.desc = document.getElementById('mdesc').value;
+      store[id] = d;
+      var ok = saveStore(store);
+      var note = document.getElementById('msave');
+      note.innerHTML = ok ? '<span class="status-dot"></span>Saved to this browser' : '<span class="status-dot" style="background:#e5484d;"></span>Could not save (storage unavailable)';
+      renderGrid();
+    });
+  }
+
+  function renderMediaSlot(id){
+    var entry = store[id] || {};
+    var slot = document.getElementById('mediaSlot');
+    if(entry.mediaData){
+      slot.innerHTML =
+        '<div class="media-preview">' +
+          (entry.mediaType === 'video'
+            ? '<video controls src="'+entry.mediaData+'"></video>'
+            : '<img src="'+entry.mediaData+'" alt="Project media">') +
+          '<button class="rm" id="rmMedia" type="button" aria-label="Remove media">✕</button>' +
+        '</div>';
+      document.getElementById('rmMedia').addEventListener('click', function(){
+        var d = store[id] || {}; delete d.mediaData; delete d.mediaType; store[id] = d; saveStore(store);
+        renderMediaSlot(id); renderGrid();
+      });
+    } else {
+      slot.innerHTML =
+        '<label class="dropzone" id="dz">' +
+          '<svg class="dz-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>' +
+          '<div class="dz-text">Drop an image or video, or click to browse</div>' +
+          '<div class="dz-sub">Stored locally in this browser — JPG, PNG, MP4 up to ~8MB</div>' +
+          '<input type="file" id="fileInput" accept="image/*,video/*">' +
+        '</label>';
+      var dz = document.getElementById('dz');
+      var input = document.getElementById('fileInput');
+      ['dragenter','dragover'].forEach(function(ev){ dz.addEventListener(ev, function(e){ e.preventDefault(); dz.classList.add('drag'); }); });
+      ['dragleave','drop'].forEach(function(ev){ dz.addEventListener(ev, function(e){ e.preventDefault(); dz.classList.remove('drag'); }); });
+      dz.addEventListener('drop', function(e){
+        if(e.dataTransfer.files && e.dataTransfer.files[0]) handleFile(id, e.dataTransfer.files[0]);
+      });
+      input.addEventListener('change', function(e){
+        if(e.target.files && e.target.files[0]) handleFile(id, e.target.files[0]);
+      });
+    }
+  }
+
+  function handleFile(id, file){
+    if(file.size > 8 * 1024 * 1024){
+      alert('File is larger than 8MB — please choose a smaller file for local storage.');
+      return;
+    }
+    var isVideo = file.type.indexOf('video') === 0;
+    var reader = new FileReader();
+    reader.onload = function(e){
+      var d = store[id] || {};
+      d.mediaData = e.target.result;
+      d.mediaType = isVideo ? 'video' : 'image';
+      store[id] = d;
+      saveStore(store);
+      renderMediaSlot(id);
+      renderGrid();
+    };
+    reader.readAsDataURL(file);
+  }
+
+  var WEB3FORMS_ACCESS_KEY = '8c91c07e-04b6-4fa6-b21e-3e37c7563473';
+
+  function wireContactForm(idPrefix){
+    var nameEl = document.getElementById(idPrefix + '-name');
+    var emailEl = document.getElementById(idPrefix + '-email');
+    var msgEl = document.getElementById(idPrefix + '-msg');
+    var btn = document.getElementById(idPrefix + '-submit');
+    var note = document.getElementById(idPrefix + '-note');
+    if(!btn || !nameEl || !note) return;
+
+    btn.addEventListener('click', function(){
+      var name = nameEl.value.trim();
+      var email = emailEl ? emailEl.value.trim() : '';
+      var message = msgEl ? msgEl.value.trim() : '';
+
+      if(!name){
+        note.innerHTML = '<span class="status-dot" style="background:#e5484d;"></span>Please add your name first.';
+        return;
+      }
+      if(!email){
+        note.innerHTML = '<span class="status-dot" style="background:#e5484d;"></span>Please add your email so I can reply.';
+        return;
+      }
+
+      btn.disabled = true;
+      var originalLabel = btn.textContent;
+      btn.textContent = 'Sending…';
+      note.innerHTML = '';
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: 'New message from oshea.london',
+          from_name: name,
+          name: name,
+          email: email,
+          message: message
+        })
+      })
+      .then(function(res){ return res.json(); })
+      .then(function(data){
+        btn.disabled = false;
+        btn.textContent = originalLabel;
+        if(data && data.success){
+          note.innerHTML = '<span class="status-dot"></span>Thanks, ' + name.split(' ')[0] + ' — your message is on its way, I\'ll get back to you soon.';
+          if(nameEl) nameEl.value = '';
+          if(emailEl) emailEl.value = '';
+          if(msgEl) msgEl.value = '';
+        } else {
+          note.innerHTML = '<span class="status-dot" style="background:#e5484d;"></span>Something went wrong sending that — please email jonathan@oshea.london directly.';
+        }
+      })
+      .catch(function(){
+        btn.disabled = false;
+        btn.textContent = originalLabel;
+        note.innerHTML = '<span class="status-dot" style="background:#e5484d;"></span>Something went wrong sending that — please email jonathan@oshea.london directly.';
+      });
+    });
+  }
+  wireContactForm('cf');
+  wireContactForm('cf-lean');
+})();
+</script>
+</body>
+</html>
