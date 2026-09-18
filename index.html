@@ -75,8 +75,7 @@
   .navlinks button:focus-visible, a:focus-visible, .card:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
 
   main{position:relative;}
-  section{padding-block:96px;}
-  @media (max-width:700px){section{padding-block:56px;}}
+  section{padding-block:clamp(48px, 8vw, 96px);}
 
   .eyebrow{
     font-family:'IBM Plex Mono';font-size:12px;letter-spacing:0.08em;text-transform:uppercase;
@@ -99,12 +98,22 @@
   .btn-ghost:hover{border-color:var(--ink);}
 
   .hero-meta{
-    display:flex;gap:0;margin-top:64px;border-top:1px solid var(--line);padding-top:0;
-    flex-wrap:wrap;
+    display:grid;grid-template-columns:repeat(4, minmax(0,1fr));
+    column-gap:clamp(20px, 3vw, 40px); row-gap:0;
+    margin-top:clamp(36px, 6vw, 64px); border-top:1px solid var(--line);
   }
-  .meta-item{flex:1;min-width:140px;padding:24px 0;border-right:1px solid var(--line);padding-right:20px;}
-  .meta-item:last-child{border-right:none;}
-  @media (max-width:700px){.meta-item{border-right:none;border-bottom:1px solid var(--line);flex:1 1 45%;}}
+  .meta-item{
+    min-width:0; padding-block:clamp(18px, 2.4vw, 24px);
+    padding-right:clamp(12px, 1.6vw, 20px); border-right:1px solid var(--line);
+  }
+  .meta-item:nth-child(4n){border-right:none;}
+  @media (max-width:700px){
+    .hero-meta{grid-template-columns:repeat(2, minmax(0,1fr)); row-gap:0;}
+    .meta-item{border-right:none;border-bottom:1px solid var(--line);}
+    .meta-item:nth-child(4n){border-right:none;}
+    .meta-item:nth-child(2n){border-right:none;}
+    .meta-item:nth-child(2n+1){border-right:1px solid var(--line);}
+  }
   .meta-item .n{font-family:'Manrope';font-size:clamp(1.3rem,3.6vw,1.9rem);font-weight:800;font-variant-numeric:tabular-nums;
     display:flex;align-items:flex-end;flex-wrap:wrap;min-height:3.5rem;line-height:1.15;margin-bottom:6px;}
   .meta-item .icon-row{gap:clamp(4px,1vw,7px);color:var(--ink);row-gap:6px;}
@@ -114,7 +123,7 @@
   .meta-item .l{font-size:12.5px;color:var(--muted);margin-top:4px;}
 
   /* about */
-  .about-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:72px;align-items:start;}
+  .about-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:clamp(32px, 6vw, 72px);align-items:start;}
   @media (max-width:860px){.about-grid{grid-template-columns:1fr;gap:36px;}}
   .about-grid h2{font-size:clamp(1.5rem,4.2vw,2.1rem);margin-bottom:22px;}
   .about-grid p{color:var(--muted);line-height:1.8;font-size:1.03rem;margin-bottom:16px;}
@@ -135,7 +144,7 @@
 
   /* contact */
   .contact-panel{
-    display:grid;grid-template-columns:1fr 1fr;gap:64px;
+    display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px, 6vw, 64px);
   }
   @media (max-width:860px){.contact-panel{grid-template-columns:1fr;gap:40px;}}
   .field{margin-bottom:20px;}
@@ -239,10 +248,10 @@
 <header>
   <div class="wrap">
     <nav>
-      <div class="brand">Field Notes</div>
+      <div class="brand">oshea.london</div>
       <div class="navlinks">
         <button data-route="home" class="active">Home</button>
-        <button data-route="portfolio">Portfolio</button>
+        <button data-route="coming-soon">Portfolio</button>
         <button id="nav-contact" class="btn btn-primary" style="padding:9px 18px;margin-left:6px;">Get in touch</button>
       </div>
     </nav>
@@ -260,7 +269,7 @@
       <h1>Tomorrow's Tech!<br>Smashed Today?</h1>
       <p class="lead">QA XR specialist experienced in augmented; mixed, &amp; virtual reality. Chaotic tests performed on every device &amp; every platform. Prototypes; unreleased hardware; controllers, and prototype software for some of the biggest names in consumer tech. Whilst denying anything and everything.</p>
       <div class="hero-cta">
-        <button class="btn btn-primary" data-route="portfolio">View portfolio →</button>
+        <button class="btn btn-primary" data-route="coming-soon">View portfolio →</button>
         <a class="btn btn-ghost" href="#contact-section">Get in touch</a>
       </div>
 
@@ -431,8 +440,23 @@
 
 </div>
 
-<!-- ================= PORTFOLIO ================= -->
-<div id="view-portfolio" hidden>
+<!-- ================= COMING SOON (public placeholder for Portfolio) ================= -->
+<div id="view-coming-soon" hidden>
+  <section style="min-height:60vh;display:flex;align-items:center;">
+    <div class="wrap" style="text-align:center;">
+      <div class="eyebrow" style="justify-content:center;">Portfolio</div>
+      <h1 style="font-size:clamp(2.2rem,6vw,3.6rem);">Coming soon.</h1>
+      <p class="port-sub" style="margin-inline:auto;">The field log is being put together &mdash; 24 XR, AR, and VR projects, with media and notes for each. Check back shortly, or get in touch in the meantime.</p>
+      <div class="hero-cta" style="justify-content:center;margin-top:28px;">
+        <button class="btn btn-primary" data-route="home">Back to home</button>
+        <button class="btn btn-ghost" id="coming-soon-contact">Get in touch</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= PORTFOLIO (private, not linked from public nav; reach via #portfolio-dev) ================= -->
+<div id="view-portfolio-dev" hidden>
 
   <section class="port-head">
     <div class="wrap">
@@ -467,11 +491,16 @@
   'use strict';
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  var views = { home: document.getElementById('view-home'), portfolio: document.getElementById('view-portfolio') };
+  var views = {
+    home: document.getElementById('view-home'),
+    'coming-soon': document.getElementById('view-coming-soon'),
+    'portfolio-dev': document.getElementById('view-portfolio-dev')
+  };
   var navBtns = document.querySelectorAll('.navlinks button[data-route]');
   function setRoute(r){
+    if(!views[r]) r = 'home';
     Object.keys(views).forEach(function(k){ views[k].hidden = (k !== r); });
-    navBtns.forEach(function(b){ b.classList.toggle('active', b.dataset.route === r); });
+    navBtns.forEach(function(b){ b.classList.toggle('active', b.dataset.route === r || (b.dataset.route === 'coming-soon' && r === 'portfolio-dev')); });
     window.scrollTo(0,0);
     try{ location.hash = r; }catch(e){}
   }
@@ -482,16 +511,24 @@
     }
   });
   var navContact = document.getElementById('nav-contact');
-  if(navContact){
-    navContact.addEventListener('click', function(){
-      setRoute('home');
-      setTimeout(function(){
-        var target = document.getElementById('contact-section');
-        if(target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 30);
-    });
+  function goToContact(){
+    setRoute('home');
+    setTimeout(function(){
+      var target = document.getElementById('contact-section');
+      if(target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 30);
   }
-  if(location.hash === '#portfolio') setRoute('portfolio');
+  if(navContact) navContact.addEventListener('click', goToContact);
+  var comingSoonContact = document.getElementById('coming-soon-contact');
+  if(comingSoonContact) comingSoonContact.addEventListener('click', goToContact);
+
+  // Public links always route to the Coming Soon placeholder; the real portfolio
+  // is reachable only by opening the page with #portfolio-dev directly (private URL).
+  if(location.hash === '#portfolio-dev'){
+    setRoute('portfolio-dev');
+  } else if(location.hash === '#portfolio' || location.hash === '#coming-soon'){
+    setRoute('coming-soon');
+  }
 
   var CATS = ['VR Headset','AR Optics','Mixed Reality','Controllers & Haptics','Tracking Systems','Software & SDK'];
   var TITLES = [
