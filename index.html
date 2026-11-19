@@ -213,6 +213,22 @@
   .card-desc{font-size:13px;color:var(--muted);line-height:1.55;flex:1;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 
+  /* card flip: hover (mouse) or keyboard focus shows the role/description on the back */
+  .card{perspective:1200px;background:transparent;}
+  .card:hover{background:transparent;}
+  .card-inner{position:relative;flex:1;display:flex;flex-direction:column;
+    transition:transform .9s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d;}
+  .card-face{backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--bg2);}
+  .card-front{flex:1;display:flex;flex-direction:column;}
+  .card-back{position:absolute;inset:0;transform:rotateY(180deg);background:var(--accent-dim);
+    padding:22px 24px;display:flex;flex-direction:column;gap:10px;overflow:hidden;}
+  .card-back .card-desc{-webkit-line-clamp:9;color:var(--ink);font-size:13.5px;}
+  .card-more{font-size:12px;font-weight:600;color:var(--accent);}
+  @media (hover:hover){.card:hover .card-inner{transform:rotateY(180deg);transition-delay:.15s;}}
+  .card:focus-visible .card-inner{transform:rotateY(180deg);}
+  @media (hover:none){.card-back{display:none;}}
+  @media (prefers-reduced-motion:reduce){.card-inner{transition:none;}}
+
   /* modal */
   .overlay{
     position:fixed;inset:0;z-index:50;background:rgba(20,18,14,0.4);backdrop-filter:blur(3px);
@@ -1021,6 +1037,7 @@
       var placeholderArt = (hasMedia || defaultImg) ? '' : (p.svg ? p.svg : mediaIcon());
       var cardDesc = (entry.desc || p.desc).split('\n\n')[0];
       card.innerHTML =
+        '<div class="card-inner"><div class="card-face card-front">' +
         '<div class="card-media"'+mediaStyle+'>' +
           (hasMedia && entry.mediaType==='video' ? '<video muted loop autoplay playsinline src="'+entry.mediaData+'" style="width:100%;height:100%;object-fit:cover;"></video>' : placeholderArt) +
           '<span class="fill-badge '+(hasMedia?'':'empty-badge')+'">'+(hasMedia ? 'Media added' : (p.badge ? p.badge : 'Add media'))+'</span>' +
@@ -1030,7 +1047,13 @@
           '<div class="card-title">'+p.title+'</div>' +
           '<div class="card-tag">'+p.cat+'</div>' +
           '<div class="card-desc">'+cardDesc+'</div>' +
-        '</div>';
+        '</div></div>' +
+        '<div class="card-face card-back" aria-hidden="true">' +
+          '<div class="card-num mono">FN-'+p.num+' · '+p.cat+'</div>' +
+          '<div class="card-title">'+p.title+'</div>' +
+          '<div class="card-desc">'+cardDesc+'</div>' +
+          '<div class="card-more">Click for details →</div>' +
+        '</div></div>';
       card.addEventListener('click', function(){ openModal(p.id); });
       grid.appendChild(card);
     });
