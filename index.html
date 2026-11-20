@@ -88,6 +88,8 @@
     background:none;border:none;color:var(--muted);padding:9px 16px;border-radius:100px;
     cursor:pointer;transition:.15s;
   }
+  .navlinks button{white-space:nowrap;}
+  @media (max-width:420px){.navlinks{gap:2px;}.navlinks button{padding-left:10px!important;padding-right:10px!important;}}
   .navlinks button:hover{color:var(--ink);}
   .navlinks button.active{color:var(--ink);background:var(--accent-dim);}
   .navlinks button:focus-visible, a:focus-visible, .card:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
@@ -364,6 +366,7 @@
       <div class="navlinks">
         <button data-route="home" class="active">Home</button>
         <button data-route="coming-soon">Portfolio</button>
+        <button data-route="why-dev">Why?</button>
         <button id="nav-contact" class="btn btn-primary" style="padding:9px 18px;margin-left:6px;">Get in touch</button>
       </div>
     </nav>
