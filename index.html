@@ -366,6 +366,7 @@
       <div class="navlinks">
         <button data-route="home" class="active">Home</button>
         <button data-route="coming-soon">Portfolio</button>
+        <button data-route="why">Why?</button>
         <button id="nav-contact" class="btn btn-primary" style="padding:9px 18px;margin-left:6px;">Get in touch</button>
       </div>
     </nav>
@@ -629,6 +630,20 @@
   </section>
 </div>
 
+<div id="view-why" hidden>
+  <section style="min-height:60vh;display:flex;align-items:center;">
+    <div class="wrap" style="text-align:center;">
+      <div class="eyebrow" style="justify-content:center;">Why?</div>
+      <h1 style="font-size:clamp(2.2rem,6vw,3.6rem);">Coming soon.</h1>
+      <p class="port-sub" style="margin-inline:auto;">The story behind 16+ years of breaking things on purpose is being written. Check back shortly, or get in touch in the meantime.</p>
+      <div class="hero-cta" style="justify-content:center;margin-top:28px;">
+        <button class="btn btn-primary" data-route="home">Back to home</button>
+        <button class="btn btn-ghost" id="why-soon-contact">Get in touch</button>
+      </div>
+    </div>
+  </section>
+</div>
+
 <!-- ================= PORTFOLIO (private, not linked from public nav; reach via #portfolio-dev) ================= -->
 <div id="view-portfolio-dev" hidden>
 
@@ -759,13 +774,14 @@
     'home-full': document.getElementById('view-home-full'),
     'coming-soon': document.getElementById('view-coming-soon'),
     'portfolio-dev': document.getElementById('view-portfolio-dev'),
-    'why-dev': document.getElementById('view-why-dev')
+    'why-dev': document.getElementById('view-why-dev'),
+    'why': document.getElementById('view-why')
   };
   var navBtns = document.querySelectorAll('.navlinks button[data-route]');
   function setRoute(r){
     if(!views[r]) r = 'home';
     Object.keys(views).forEach(function(k){ views[k].hidden = (k !== r); });
-    navBtns.forEach(function(b){ b.classList.toggle('active', b.dataset.route === r || (b.dataset.route === 'coming-soon' && r === 'portfolio-dev')); });
+    navBtns.forEach(function(b){ b.classList.toggle('active', b.dataset.route === r || (b.dataset.route === 'coming-soon' && r === 'portfolio-dev') || (b.dataset.route === 'why' && r === 'why-dev')); });
     window.scrollTo(0,0);
     try{ location.hash = r; }catch(e){}
   }
@@ -787,6 +803,8 @@
   var comingSoonContact = document.getElementById('coming-soon-contact');
   if(comingSoonContact) comingSoonContact.addEventListener('click', goToContact);
   var fy = document.getElementById('footer-year'); if(fy) fy.textContent = new Date().getFullYear();
+  var whySoonContact = document.getElementById('why-soon-contact');
+  if(whySoonContact) whySoonContact.addEventListener('click', goToContact);
   var whyContact = document.getElementById('why-contact');
   if(whyContact) whyContact.addEventListener('click', goToContact);
 
@@ -796,6 +814,8 @@
     setRoute('portfolio-dev');
   } else if(location.hash === '#why-dev'){
     setRoute('why-dev');
+  } else if(location.hash === '#why'){
+    setRoute('why');
   } else if(location.hash === '#home-full'){
     setRoute('home-full');
   } else if(location.hash === '#portfolio' || location.hash === '#coming-soon'){
