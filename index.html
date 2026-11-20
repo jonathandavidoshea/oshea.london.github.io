@@ -329,6 +329,29 @@
   .save-note{font-size:12px;color:var(--muted2);display:flex;align-items:center;gap:6px;}
   .status-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;}
 
+
+  /* Why page: a short timeline of blocks, each with a year/label rail on the left */
+  .why-wrap{max-width:860px;}
+  .why h1{font-size:clamp(2.2rem,5.4vw,3.8rem);line-height:1.04;margin-top:14px;max-width:16ch;}
+  .why-lede{font-size:clamp(1.05rem,1.6vw,1.25rem);line-height:1.6;color:var(--muted);max-width:56ch;margin:22px 0 56px;}
+  .why-block{display:grid;grid-template-columns:120px minmax(0,1fr);gap:28px;padding:34px 0;border-top:1px solid var(--line);}
+  .why-year{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);padding-top:6px;}
+  .why-text h2{font-size:clamp(1.35rem,2.4vw,1.75rem);margin-bottom:12px;}
+  .why-text p{color:var(--muted);line-height:1.75;max-width:62ch;margin:0 0 14px;}
+  .why-spec{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:18px 0 20px;}
+  .why-spec div{background:var(--bg2);padding:12px 14px;}
+  .why-spec dt{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted2);}
+  .why-spec dd{margin:4px 0 0;font-family:'Manrope',system-ui,sans-serif;font-weight:800;font-size:15px;color:var(--ink);}
+  .why-quote{margin:24px 0;padding:36px 0;border-top:1px solid var(--line);}
+  .why-quote blockquote{margin:0;font-family:'Manrope',system-ui,sans-serif;font-weight:800;font-size:clamp(1.5rem,3.2vw,2.3rem);line-height:1.18;letter-spacing:-.02em;max-width:24ch;}
+  .why-quote figcaption{margin-top:16px;color:var(--muted);line-height:1.6;max-width:56ch;}
+  .why-draft{display:inline-block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2);border:1px dashed var(--muted2);border-radius:100px;padding:3px 10px;margin-bottom:12px;}
+  .why-block.draft .why-text p{font-style:italic;}
+  .why-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;}
+  @media (max-width:640px){
+    .why-block{grid-template-columns:1fr;gap:8px;padding:28px 0;}
+    .why-spec{grid-template-columns:repeat(2,minmax(0,1fr));}
+  }
   [hidden]{display:none!important;}
 </style>
 </head>
@@ -640,13 +663,76 @@
 
 <!-- ================= WHY? (private draft, not linked from public nav; reach via #why-dev) ================= -->
 <div id="view-why-dev" hidden>
-  <section class="port-head">
-    <div class="wrap">
-      <div class="eyebrow">Draft &mdash; work in progress</div>
-      <h1>Why?</h1>
-      <p class="port-sub">[Placeholder] The about-me page. Why XR/AR/VR QA, why now, and why this work matters to you &mdash; the story behind 15+ years of finding the flaws other people miss. We'll write this together &mdash; nothing on this page is final, and it isn't linked anywhere on the public site yet.</p>
-      <p class="port-sub">[Placeholder] A few paragraphs on your background: how you got into testing, the shift into immersive tech, the kinds of teams and studios you've supported, and what drives you day to day.</p>
-      <p class="port-sub">[Placeholder] A closing note: what you're looking for next, and how people should reach out.</p>
+<!--
+  WHY PAGE: still to answer (sections marked "Draft" were written by Claude as stand-ins):
+  4. What do immersive products get wrong that only a tester notices? (comfort, tracking, real rooms/light)
+  5. How would a producer or studio describe working with you?
+  6. Outside work: running (Strava), writing (Substack), anything else?
+  7. What do you want from this page: contract work, a full-time role, or a fuller picture of you?
+  8. Tone: dry and funny, straight professional, or in between?
+-->
+  <section class="port-head why">
+    <div class="wrap why-wrap">
+      <div class="eyebrow">Why?</div>
+      <h1>If the game wants you to run right, I go left.</h1>
+      <p class="why-lede">I&rsquo;ve been breaking things on purpose since 1995. These days I do it for studios building some of the most ambitious XR, AR and VR work around, so their audiences never find what I find.</p>
+
+      <div class="why-block">
+        <div class="why-year">1995</div>
+        <div class="why-text">
+          <h2>The first build</h2>
+          <p>I built my first PC with my older cousin Richard. I saved for twelve months to buy the modem.</p>
+          <dl class="why-spec">
+            <div><dt>CPU</dt><dd>Pentium 75</dd></div>
+            <div><dt>RAM</dt><dd>8&nbsp;MB</dd></div>
+            <div><dt>Disk</dt><dd>512&nbsp;MB</dd></div>
+            <div><dt>Modem</dt><dd>Motorola 28.8k</dd></div>
+          </dl>
+          <p>I was testing before I knew the word for it. To me, a game was a set of rules to find the edges of. If the level was built for you to run right, I ran left. I still do. My brain is constantly trying to break whatever is in front of it.</p>
+        </div>
+      </div>
+
+      <div class="why-block">
+        <div class="why-year">Then</div>
+        <div class="why-text">
+          <h2>Good people asked</h2>
+          <p>I didn&rsquo;t plan a career in immersive tech. I have brilliant friends: artists and makers, truly spectacular people. Their projects often depended on that brilliance, with the assumption that every mistake would be caught before launch.</p>
+          <p>So they started asking me. For help, for ideas, for a second pair of eyes that would try everything the wrong way. Over time that became the job. Good people wanted my opinion, and I&rsquo;m grateful for that.</p>
+        </div>
+      </div>
+
+      <figure class="why-quote">
+        <blockquote>One bug in &ldquo;Infinity Accounts&rdquo; would have cost a bank hundreds of millions in lawsuits. I found it before anyone else did.</blockquote>
+        <figcaption>It also sent me down the cyber security road: brute-force testing, and finding where systems give way.</figcaption>
+      </figure>
+
+      <div class="why-block draft">
+        <div class="why-year">Now</div>
+        <div class="why-text">
+          <span class="why-draft">Draft &middot; Claude wrote this, please rewrite</span>
+          <h2>Why immersive needs a different tester</h2>
+          <p>A phone app lives on a flat screen. XR lives in someone&rsquo;s living room, under their lighting, on their body. Tracking drifts, comfort breaks, a rule that works in the studio fails in a real room. I test the way people actually use it: wrong, fast, sideways, and for longer than anyone planned.</p>
+        </div>
+      </div>
+
+      <div class="why-block draft">
+        <div class="why-year">With me</div>
+        <div class="why-text">
+          <span class="why-draft">Draft &middot; Claude wrote this, please rewrite</span>
+          <h2>What working with me is like</h2>
+          <p>I sit with the people making the work, not at the end of a pipeline. I bring clear reports, honest priorities, and a calm head in the last weeks before launch.</p>
+        </div>
+      </div>
+
+      <div class="why-block draft">
+        <div class="why-year">Next</div>
+        <div class="why-text">
+          <span class="why-draft">Draft &middot; Claude wrote this, please rewrite</span>
+          <h2>Got something that needs breaking?</h2>
+          <p>If you&rsquo;re building something ambitious and want it to hold up in the real world, I&rsquo;d like to hear about it.</p>
+          <div class="why-cta"><button class="btn btn-primary" id="why-contact" type="button">Get in touch</button><button class="btn btn-ghost" data-route="portfolio-dev" type="button">See the work</button></div>
+        </div>
+      </div>
     </div>
   </section>
 </div>
@@ -698,6 +784,8 @@
   if(navContact) navContact.addEventListener('click', goToContact);
   var comingSoonContact = document.getElementById('coming-soon-contact');
   if(comingSoonContact) comingSoonContact.addEventListener('click', goToContact);
+  var whyContact = document.getElementById('why-contact');
+  if(whyContact) whyContact.addEventListener('click', goToContact);
 
   // Public links always route to the Coming Soon placeholder; the real portfolio
   // is reachable only by opening the page with #portfolio-dev directly (private URL).
