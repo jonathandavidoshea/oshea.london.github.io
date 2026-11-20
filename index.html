@@ -135,6 +135,7 @@
   .meta-item .n{font-family:'Manrope';font-size:clamp(1.3rem,3.6vw,1.9rem);font-weight:800;font-variant-numeric:tabular-nums;
     display:flex;align-items:flex-end;flex-wrap:wrap;min-height:3.5rem;line-height:1.15;margin-bottom:6px;}
   .meta-item .icon-row{gap:clamp(4px,1vw,7px);color:var(--ink);row-gap:6px;}
+  .meta-item .icon-row svg{stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}  /* heavier outlines to match the 800-weight figures */
   .meta-item .icon-row svg{flex:none;width:clamp(16px,4vw,24px);height:clamp(16px,4vw,24px);}
   .infinity-glyph{font-family:'Manrope';font-weight:800;font-size:clamp(1.05rem,3vw,1.5rem);line-height:1;color:var(--ink);}
   @media (max-width:700px){.meta-item{padding-right:12px;}}
@@ -956,7 +957,7 @@
   // Real projects. The grid sorts them newest first by their date field.
   var REAL_PROJECTS = [DOOMSDAY_PROJECT, GAMENIGHT_PROJECT, GOHENRY_PROJECT, GAMEDAY_PROJECT, KFP_PROJECT, HEADSPACE_PROJECT, JUNGLE_PROJECT, JRREALITY_PROJECT, STORYTRAILS_PROJECT, ETERNALS_PROJECT, SHEBA_PROJECT, STATSZONE_PROJECT, INFOSYS_PROJECT, FEATURED_PROJECT];
   var projects = REAL_PROJECTS;
-  // Case references: "Case YY.NN", numbered within each year from the earliest project (01) onwards.
+  // Project references: "Project YY.NN", numbered within each year from the earliest project (01) onwards.
   var MONTHS = ['january','february','march','april','may','june','july','august','september','october','november','december'];
   function dateKey(d){
     d = String(d || '');
@@ -969,7 +970,7 @@
   projects.forEach(function(p){ var k = dateKey(p.date); p.year = k.year; p.sortKey = k.sort; (byYear[k.year] = byYear[k.year] || []).push(p); });
   Object.keys(byYear).forEach(function(y){
     byYear[y].sort(function(a, b){ return a.sortKey - b.sortKey; }).forEach(function(p, i){
-      p.ref = 'Case ' + String(y).slice(2) + '.' + String(i + 1).padStart(2, '0');
+      p.ref = 'Project ' + String(y).slice(2) + '.' + String(i + 1).padStart(2, '0');
     });
   });
   // Newest first, by date; projects with the same date keep their list order.
@@ -1078,7 +1079,7 @@
       '<div class="overlay" id="ov">' +
         '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="shTitle">' +
           '<button class="sheet-btn sheet-close" id="mclose" aria-label="Close">✕</button>' +
-          '<div class="sheet-media">' + media + '<div class="sheet-num">Case<b>'+p.ref.replace('Case ','')+'</b></div></div>' +
+          '<div class="sheet-media">' + media + '<div class="sheet-num">Project<b>'+p.ref.replace('Project ','')+'</b></div></div>' +
           '<div class="sheet-body">' +
             '<div class="sheet-scroll">' +
               '<div class="sheet-eyebrow"><span class="sheet-cat">'+esc(p.cat)+'</span>' +
