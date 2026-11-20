@@ -743,7 +743,7 @@
 
 <footer>
   <div class="wrap foot-row">
-    <span>&copy; 2011 Coprami — XR/AR/VR QA</span>
+    <span>&copy; 2011&ndash;<span id="footer-year">2026</span> Coprami — XR/AR/VR QA</span>
     <span>oshea.london</span>
   </div>
 </footer>
@@ -786,6 +786,7 @@
   if(navContact) navContact.addEventListener('click', goToContact);
   var comingSoonContact = document.getElementById('coming-soon-contact');
   if(comingSoonContact) comingSoonContact.addEventListener('click', goToContact);
+  var fy = document.getElementById('footer-year'); if(fy) fy.textContent = new Date().getFullYear();
   var whyContact = document.getElementById('why-contact');
   if(whyContact) whyContact.addEventListener('click', goToContact);
 
