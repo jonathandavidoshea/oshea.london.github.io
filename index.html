@@ -351,6 +351,17 @@
     .why-block{grid-template-columns:1fr;gap:8px;padding:28px 0;}
     .why-spec{grid-template-columns:repeat(2,minmax(0,1fr));}
   }
+
+  /* QA lead block on the portfolio page: six stages in lifecycle order */
+  .lead-block{margin-top:48px;}
+  .lead-head h2{font-size:clamp(1.4rem,2.6vw,1.9rem);max-width:30ch;margin-top:10px;}
+  .lead-steps{list-style:none;padding:0;margin:24px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;counter-reset:step;}
+  .lead-steps li{background:var(--bg2);padding:22px 22px 24px;counter-increment:step;}
+  .lead-steps li::before{content:counter(step,decimal-leading-zero);display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;color:var(--accent);margin-bottom:10px;}
+  .lead-steps h3{font-size:16px;margin:0 0 6px;}
+  .lead-steps p{margin:0;font-size:13.5px;line-height:1.6;color:var(--muted);}
+  @media (max-width:860px){.lead-steps{grid-template-columns:repeat(2,minmax(0,1fr));}}
+  @media (max-width:560px){.lead-steps{grid-template-columns:1fr;}}
   [hidden]{display:none!important;}
 </style>
 </head>
@@ -663,6 +674,20 @@
         </div>
         <div class="meta-item"><div class="n mono">404 Not Found</div><div class="l">Bugs logged</div></div>
         <div class="meta-item"><div class="n">16+yrs</div><div class="l">In the field</div></div>
+      </div>
+      <div class="lead-block">
+        <div class="lead-head">
+          <div class="eyebrow">What a QA lead brings</div>
+          <h2>From first build to launch day, owning quality end to end.</h2>
+        </div>
+        <ol class="lead-steps">
+          <li><h3>Test strategy</h3><p>A plan for the whole project: what gets deep coverage, what gets a smoke pass, and the bar each milestone has to clear.</p></li>
+          <li><h3>Real-world device matrix</h3><p>Headsets, phones and glasses across OS versions, tested in real rooms, real light and real bodies, not just the studio.</p></li>
+          <li><h3>Comfort and performance</h3><p>Frame rate, thermals over long sessions, tracking drift and motion comfort, so nobody takes the headset off early.</p></li>
+          <li><h3>Triage and reporting</h3><p>Clear reproduction steps, honest severity calls, and daily status the producers can act on.</p></li>
+          <li><h3>Platform certification</h3><p>Getting builds through store and platform checks, such as Meta&rsquo;s Quest VRCs and App Store review, first time.</p></li>
+          <li><h3>Release sign-off</h3><p>A clear go or no-go, a list of known issues, and the voice that says &ldquo;not yet&rdquo; when it matters.</p></li>
+        </ol>
       </div>
       <div class="filter-row" id="filter-row" style="margin-top:32px;"></div>
     </div>
