@@ -342,8 +342,10 @@
   .why-spec dt{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted2);}
   .why-spec dd{margin:4px 0 0;font-family:'Manrope',system-ui,sans-serif;font-weight:800;font-size:15px;color:var(--ink);}
   .why-quote{margin:24px 0;padding:36px 0;border-top:1px solid var(--line);}
-  .why-quote blockquote{margin:0;font-family:'Manrope',system-ui,sans-serif;font-weight:800;font-size:clamp(1.5rem,3.2vw,2.3rem);line-height:1.18;letter-spacing:-.02em;max-width:24ch;}
-  .why-quote figcaption{margin-top:16px;color:var(--muted);line-height:1.6;max-width:56ch;}
+  .why-quote blockquote{position:relative;margin:0;padding:28px 32px 28px 34px;border-left:4px solid var(--accent);background:var(--accent-dim);border-radius:0 16px 16px 0;
+    font-family:'Manrope',system-ui,sans-serif;font-weight:700;font-style:italic;font-size:clamp(1.25rem,2.4vw,1.75rem);line-height:1.35;letter-spacing:-.01em;max-width:40ch;}
+  .why-quote blockquote::before{content:"\201C";position:absolute;top:-18px;left:18px;font-family:Georgia,'Times New Roman',serif;font-style:normal;font-weight:700;font-size:5.5rem;line-height:1;color:var(--accent);}
+  .why-quote figcaption{margin-top:16px;padding-left:38px;color:var(--muted);line-height:1.6;max-width:56ch;}
   .why-draft{display:inline-block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2);border:1px dashed var(--muted2);border-radius:100px;padding:3px 10px;margin-bottom:12px;}
   .why-block.draft .why-text p{font-style:italic;}
   .why-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;}
