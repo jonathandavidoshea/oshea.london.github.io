@@ -10,15 +10,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#faf9f6;
+    --bg:#f0eee9;
     --bg2:#ffffff;
     --surface:#ffffff;
-    --line:#e6e3db;
-    --ink:#15171a;
-    --muted:#6f6b62;
-    --muted2:#a29d92;
-    --accent:#2c5ce6;
-    --accent-dim:#e8edfc;
+    --line:#dcd8d0;
+    --ink:#1c1c1c;
+    --muted:#6e6a63;
+    --muted2:#a39e95;
+    --accent:#e2440f;
+    --accent-dim:#ffe7dd;
     --ok:#17803d;
     --ok-dim:#e3f4e8;
     --bad:#c4302b;
@@ -27,15 +27,15 @@
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#121212;
-      --bg2:#181818;
-      --surface:#1b1b1b;
-      --line:#2d2d2b;
-      --ink:#f2f1ec;
-      --muted:#a6a29a;
-      --muted2:#716d64;
-      --accent:#7c9bff;
-      --accent-dim:#1c2338;
+      --bg:#141312;
+      --bg2:#1b1a18;
+      --surface:#1e1d1b;
+      --line:#2e2c29;
+      --ink:#f0eee9;
+      --muted:#a8a39a;
+      --muted2:#75706a;
+      --accent:#ff6a3d;
+      --accent-dim:#3a1e14;
       --ok:#5fd38a;
     --ok-dim:#14281c;
     --bad:#ff7a73;
@@ -43,15 +43,15 @@
     }
   }
   :root[data-theme="dark"]{
-    --bg:#121212;
-    --bg2:#181818;
-    --surface:#1b1b1b;
-    --line:#2d2d2b;
-    --ink:#f2f1ec;
-    --muted:#a6a29a;
-    --muted2:#716d64;
-    --accent:#7c9bff;
-    --accent-dim:#1c2338;
+    --bg:#141312;
+    --bg2:#1b1a18;
+    --surface:#1e1d1b;
+    --line:#2e2c29;
+    --ink:#f0eee9;
+    --muted:#a8a39a;
+    --muted2:#75706a;
+    --accent:#ff6a3d;
+    --accent-dim:#3a1e14;
     --ok:#5fd38a;
     --ok-dim:#14281c;
     --bad:#ff7a73;
@@ -219,7 +219,7 @@
   }
   .card-media .empty-badge{background:var(--bg2);color:var(--muted);border:1px solid var(--line);}
   .card-media .fill-badge.badge-shipped{background:var(--ok-dim);color:var(--ok);border:1px solid var(--ok);}
-  .card-media .fill-badge.badge-soon{background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent);}
+  .card-media .fill-badge.badge-soon{background:var(--bg2);color:var(--ink);border:1px solid var(--ink);}
   .card-media .fill-badge.badge-unreleased{background:var(--bad-dim);color:var(--bad);border:1px solid var(--bad);}
   .card-body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:8px;flex:1;}
   .card-num{font-family:'IBM Plex Mono';font-size:11px;color:var(--muted2);letter-spacing:0.04em;}
@@ -276,7 +276,7 @@
   .sheet-badge{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:100px;border:1px solid var(--line);color:var(--muted);}
   .sheet-badge.ok{background:var(--ok-dim);color:var(--ok);border-color:var(--ok);}
   .sheet-badge.bad{background:var(--bad-dim);color:var(--bad);border-color:var(--bad);}
-  .sheet-badge.soon{background:var(--accent-dim);color:var(--accent);border-color:var(--accent);}
+  .sheet-badge.soon{background:var(--bg2);color:var(--ink);border-color:var(--ink);}
   .sheet-title{font-family:'Manrope';font-weight:800;font-size:clamp(1.6rem,2.6vw,2.25rem);line-height:1.08;letter-spacing:-.025em;margin:0 0 10px;}
   .sheet-when{font-size:13px;color:var(--muted2);margin-bottom:26px;}
   .sheet-about{font-size:15.5px;line-height:1.7;color:var(--muted);margin:0 0 26px;}
